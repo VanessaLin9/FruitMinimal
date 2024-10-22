@@ -1,0 +1,6 @@
+{
+  "Database": {
+    "IsDev": true,
+    "ServiceUrl": "jdbc:sqlserver://devdb.coreop.net:1433"
+  }
+}

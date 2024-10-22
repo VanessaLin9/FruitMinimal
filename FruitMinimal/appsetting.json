@@ -1,0 +1,14 @@
+{
+  "Project": "fruitminimal",
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.AspNetCore.HttpLogging": "Information",
+        "System": "Warning"
+      }
+    }
+  },
+  "AllowedHosts": "*"
+}
