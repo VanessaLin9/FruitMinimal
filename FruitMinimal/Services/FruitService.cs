@@ -4,7 +4,7 @@ public class FruitService
 {
     public void UpdateFruit()
     {
-        Console.WriteLine("Update Apple!");
+        Console.WriteLine("Updated Apple!");
     }
 
     public void GetFruits()
