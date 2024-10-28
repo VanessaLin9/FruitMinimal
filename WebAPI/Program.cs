@@ -7,6 +7,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
 
+builder.Services.AddEndpointsApiExplorer();
+
 var app = builder.Build();
 
 var sampleTodos = new Todo[] {
@@ -23,6 +25,22 @@ todosApi.MapGet("/{id}", (int id) =>
     sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
         ? Results.Ok(todo)
         : Results.NotFound());
+todosApi.MapPost("/", (Todo todo) =>
+{
+    sampleTodos = sampleTodos.Append(todo with { Id = sampleTodos.Max(a => a.Id) + 1 }).ToArray();
+    return Results.Created($"/todos/{todo.Id}", todo);
+});
+todosApi.MapDelete("/{id}", (int id) =>
+{
+    var todo = sampleTodos.FirstOrDefault(a => a.Id == id);
+    if (todo is null)
+    {
+        return Results.NotFound();
+    }
+
+    sampleTodos = sampleTodos.Where(a => a.Id != id).ToArray();
+    return Results.Ok(todo);
+});
 
 app.Run();
 
