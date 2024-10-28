@@ -12,13 +12,11 @@ public static class FruitEndPoint
 {
     private static readonly Fruit[] Fruits =
     [
-        new Fruit { Name = "Apple", Color = "Red", Size = "Medium", Quantity = 10 },
-        new Fruit { Name = "Banana", Color = "Yellow", Size = "Medium", Quantity = 20 },
-        new Fruit { Name = "Cherry", Color = "Red", Size = "Small", Quantity = 0 },
+        new() { Name = "Apple", Color = "Red", Size = "Medium", Quantity = 10 },
+        new() { Name = "Banana", Color = "Yellow", Size = "Medium", Quantity = 20 },
+        new() { Name = "Cherry", Color = "Red", Size = "Small", Quantity = 0 },
     ];
 
-
-    private static List<int> _testNumbers = [1, 2, 3];
 
     public static IEndpointRouteBuilder MapFruitApi(this IEndpointRouteBuilder app)
     {
@@ -41,13 +39,11 @@ public static class FruitEndPoint
     }
 
 
-    private static void GetIteratorFruit(HttpContext context)
+    private static void GetIteratorFruit(FruitService fruitService)
     {
-        foreach (var name in FruitService.IteratorAvailableFruit(Fruits))
+        foreach (var name in fruitService.YieldReturnAvailableFruit(Fruits))
         { 
             Console.WriteLine($"=======> name: {name}");
-            context.Response.WriteAsync(name + "\n");
-            context.Response.Body.Flush();
         }
     }
 

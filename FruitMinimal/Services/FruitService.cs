@@ -17,7 +17,7 @@ public class FruitService
         //return int.Parse(Q2);
     }
 
-    public static IEnumerable<string> IteratorAvailableFruit(Fruit[] Fruits)   
+    public IEnumerable<string> YieldReturnAvailableFruit(Fruit[] Fruits)   
     {
         foreach (var fruit in Fruits)
         {
