@@ -1,4 +1,5 @@
 ﻿global using ILogger = Serilog.ILogger;
+using FruitMinial.EndPoints;
 using FruitMinimal.EndPoints;
 using FruitMinimal.StartUp;
 using Microsoft.AspNetCore.Builder;
@@ -17,11 +18,14 @@ builder.Services.AddCors();
 
 builder.RegisterService();
 
-builder.WebHost.UseKestrel(option =>
+if (!builder.Environment.IsDevelopment())
 {
-    option.ListenAnyIP(14000, o => o.Protocols = HttpProtocols.Http1);
-    option.AllowSynchronousIO = true;
-});
+    builder.WebHost.UseKestrel(option =>
+    {
+        option.ListenAnyIP(14000, o => o.Protocols = HttpProtocols.Http1);
+        option.AllowSynchronousIO = true;
+    });
+}
 
 builder.Services.AddHttpLogging(logging =>
 {
